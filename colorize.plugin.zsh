@@ -11,6 +11,17 @@ if [[ $PMSPEC != *b* ]] {
 DEPENDENCES_ARCH+=( grc )
 DEPENDENCES_DEBIAN+=( grc )
 
+PYGMENTIZE_THEME=${PYGMENTIZE_THEME:-"monokai"}
+_pygmentize_theme(){
+  if (( $+commands[pygmentize] )); then
+    export LESSOPEN="|pygmentize -f 256 -O style=$PYGMENTIZE_THEME -g %s"
+    alias pygmentize="pygmentize -O style=$PYGMENTIZE_THEME"
+  fi
+  precmd_functions=(${precmd_functions#_pygmentize_theme})
+}
+
+precmd_functions+=( _pygmentize_theme )
+
 export LESS='-R -M'
 
 function man() {
