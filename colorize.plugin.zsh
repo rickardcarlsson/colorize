@@ -14,8 +14,8 @@ DEPENDENCES_DEBIAN+=( grc )
 PYGMENTIZE_THEME=${PYGMENTIZE_THEME:-"monokai"}
 _pygmentize_theme(){
   if (( $+commands[pygmentize] )); then
-    export LESSOPEN="|pygmentize -f 256 -O style=$PYGMENTIZE_THEME -g %s"
-    alias pygmentize="pygmentize -O style=$PYGMENTIZE_THEME"
+    export LESSOPEN="|pygmentize -f terminal256 -O style=$PYGMENTIZE_THEME -g %s"
+    alias pygmentize="pygmentize -f terminal256 -O style=$PYGMENTIZE_THEME"
   fi
   precmd_functions=(${precmd_functions#_pygmentize_theme})
 }
